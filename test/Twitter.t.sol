@@ -14,14 +14,18 @@ contract TestTwitter is Test {
     function testUserTweetPosting() public {
         // Simulate a specific address to act as the sender
         address msgSender = address(0x123);
-        string memory tweetContent = "Hello, this is a test tweet";
+        string memory tweetContent = "Hello, web3 twitter";
 
-        // Simulate msgSender calling postTweet
+        // Simulate msgSender calling createTweet
         vm.prank(msgSender);
         twitter.createTweet(tweetContent);
 
-        // Retrieve the tweet and check if it matches the expected content
-        string memory retrievedTweet = twitter.getTweet(msgSender, 0);
-        assertEq(retrievedTweet, tweetContent, "Tweet content mismatch");
+        // Retrieve the tweet content and check if it matches the expected content
+        Twitter.Tweet memory retrievedTweet = twitter.getTweet(msgSender, 0);
+        assertEq(
+            retrievedTweet.content,
+            tweetContent,
+            "Tweet content mismatch"
+        );
     }
 }
